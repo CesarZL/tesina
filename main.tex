@@ -1,0 +1,330 @@
+\documentclass[12pt]{article}
+\usepackage[left=2.5cm,top=2.0cm,right=2.5cm,bottom=3.0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+%\usepackage[english, american]{babel}
+%\usepackage[spanish,es-tabla]{babel}
+\usepackage[linguistics]{forest}
+\usepackage{amssymb, amsmath, amsbsy} % simbolitos
+\usepackage{longtable} % para tablas largas
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{parskip}
+\usepackage[skip=12pt plus1pt]{parskip}
+\usepackage{pdfpages} % Incluir PDF en documento en LATEX
+\usepackage{verbatim} % comentarios
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{pdflscape}
+\usepackage{multirow}
+\usepackage{afterpage}
+\usepackage{array,booktabs,ragged2e}
+%\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Lista de algoritmos}
+\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+\renewcommand{\algorithmicensure}{\textbf{Salida:}}
+
+% Comentario con respecto a las referencias:
+% Por defecto este documento utiliza el formato IEEEtr para formatear las referencias. Si algun asesor requiere formato APA, solo comente la siguiente linea y descomente la linea debajo. Tambien para que las citas funcionen de manera adecuada, el paquete label debe tener las opciones mostradas, o en su defecto, el año en el listado no lo muestra correctamente \usepackage[english, american]{babel}
+
+% Para utilizar el formato de citas IEEE y comentar los dos parrafos siguientes
+\usepackage[backend=bibtex,sorting=none]{biblatex}
+% Para utilizar el formato APA, sugiero comentar la linea anterior y descomentar las dos proximas lineas
+%\usepackage[backend=biber,style=apa]{biblatex}
+%\DeclareLanguageMapping{english}{american-apa}
+
+\makeatletter
+\DefineBibliographyExtras{spanish}{%
+  \setcounter{smartand}{1}%
+  \let\lbx@finalnamedelim=\lbx@es@smartand{}
+  \let\lbx@finallistdelim=\lbx@es@smartand{}
+}
+\renewbibmacro*{name:delim:apa:family-given}[1]{%
+  \ifnumgreater{\value{listcount}}{\value{liststart}}
+    {\ifboolexpr{
+       test {\ifnumless{\value{listcount}}{\value{liststop}}}
+       or
+       test \ifmorenames{}
+     }
+       {\printdelim{multinamedelim}}
+       {\lbx@finalnamedelim{#1}}}
+    {}}
+\makeatother
+
+
+% Estas lineas permiten romper los hipervinculos muy largos en las referencias!!!!
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\addbibresource{x.bib} % ARCHIVO DE BIBLIOGRAFÍA
+
+
+%\usepackage{url}
+\usepackage[bookmarks=true,breaklinks=true,bookmarksopen=false,colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+% Regla que define explicitamente que caracteres rompen los hipervinculos para separar las lineas
+%https://es.overleaf.com/11089898rhgykrqyqytx
+% Actualiza en automático la fecha de las citas de internet a la fecha de la compilación del documento
+\usepackage{datetime}
+\newdateformat{specialdate}{\twodigit{\THEDAY}-\twodigit{\THEMONTH}-\THEYEAR}
+%\newdateformat{specialdate}{\twodigit{\THEDAY}-\THEYEAR}
+\date{\specialdate\today}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.25mm}}
+
+
+% CONSTANTES NECESARIAS PARA EL DOCUMENTO ---> MODIFIQUEN A SU CRITERIO
+\newcommand{\ncarrera}{Ingeniería en Tecnologías de la Información}
+% \newcommand{\nasesorinstitucional}{Dr. Marco Aurelio Nuño Maganda}
+\newcommand{\nasesorinstitucional}{Héctor Hugo Avilés Arriaga}
+\newcommand{\NombreAlumno}{César Zavala López}
+\newcommand{\elolaNombreAlumno}{el}  
+\newcommand{\OA}{o} 
+\newcommand{\Matricula}{2030241} 
+\newcommand{\NombreProyecto}{Optimización del Proceso de Escritura Académica mediante el Desarrollo de un Sistema Web de Formateo de Archivos TeX}
+% \newcommand{\fechacarta}{26 de Abril de 2024}
+\newcommand{\fechacarta}{7 de Agosto de 2024}
+\newcommand{\ncuatrimestre}{mayo-agosto 2024}
+\newcommand{\nevaluador}{EVALUADOR POR DEFINIR}
+\newcommand{\nevaluadoringles}{}
+
+% \newcommand{\FechaExposicion}{11 de Agosto de 2024}
+\newcommand{\FechaExposicion}{FECHA POR DEFINIR}
+% \newcommand{\HoraExposionFormatoVenticuatroHoras}{10:00}
+\newcommand{\HoraExposionFormatoVenticuatroHoras}{HORA POR DEFINIR}
+\newcommand{\elolaNombreEmpresa}{la}
+\newcommand{\organismoreceptor}{Universidad Politécnica de Victoria}
+
+%HEADER DE LAS PÁGINAS
+\newcommand{\NombreProyectoheader}{Desarrollo de un Sistema Web \\ de Formateo de archivos TeX}
+
+\newcommand{\nasesorempresaria}{Dr.\ Marco Aurelio Nuño Maganda}
+\newcommand{\fechaPortada}{Agosto de 2024}
+
+
+
+
+
+\newcommand{\separacionCorta}{0.0cm}
+\newcommand{\separacionLarga}{0.5cm}
+
+\usepackage[overload]{textcase}
+\newcommand{\iemph}[1]{\MakeTextUppercase{#1}}
+
+\pagestyle{fancy}
+\headheight 45pt
+\fancyhead{} % Clear all header fields
+\fancyhead[L]{\includegraphics[height=1.50cm]{LOGOS/UTyP-LOGO.png}}%
+\fancyhead[C]{\begin{center}\NombreProyectoheader\end{center}}%
+\fancyhead[R]{\includegraphics[height=1.50cm]{LOGOS/UPV-LOGO.png}}%
+\fancyfoot[R]{\thepage} % Clear all footer fields 
+\fancyfoot[C]{}
+\fancyfoot[L]{}
+
+\DefineBibliographyStrings{english}{%
+  references = {Referencias},% replace "references" with "bibliography"  for `book`/`report`
+}
+
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+} 
+
+\usepackage{wallpaper}
+
+\usepackage{pgf-pie}  % Para graficas de pastel
+\usepackage{pgfgantt} % Para diagramas de Gantt
+\usepackage{tikz}     % Para diagramas de flujo
+\usetikzlibrary{positioning, shapes, arrows.meta}
+
+%\renewcommand{\figurename}{Figura}
+%\renewcommand{\tablename}{Tabla}
+
+ 
+\begin{document}
+
+%-------------------------------------------------------------------------------------
+% PAGINA 1 - PORTADA
+\setcounter{page}{1}
+\pagenumbering{roman}
+\thispagestyle{empty}
+
+\begin{center}
+
+\begin{tabular}{cp{3.5cm}c}
+\includegraphics[height=2.25cm]{LOGOS/UTyP-LOGO.png} & 
+& \includegraphics[height=2.25cm]{LOGOS/UPV-LOGO.png}   \\
+\end{tabular}
+
+\Large \textbf{UNIVERSIDAD POLITÉCNICA DE VICTORIA}
+\vspace{0.5cm}
+\hrule
+\vspace{0.1cm} 
+\hrule
+\vspace{0.5cm}
+
+
+%\HRule \\[\separacionCorta]
+\textbf{\iemph{\NombreProyecto}} \\[\separacionLarga]
+%\Large \textbf{TESINA}
+%\HRule \\[\separacionLarga]
+T E S I N A \\
+PARA OBTENER EL GRADO DE \\
+\textbf{\iemph{\ncarrera}} \\[\separacionLarga]
+
+PRESENTA:\\[\separacionCorta]
+%\textbf{\Capitalize{\NombreAlumno}\\[\separacionLarga]
+\textbf{\iemph{\NombreAlumno}}\\[\separacionLarga]
+%EN CUMPLIMIENTO DE \\[\separacionCorta]
+%LA ESTADÍA DE LA CARRERA DE \\[\separacionCorta]
+
+
+DIRECTOR \\[\separacionCorta]
+\textbf{\iemph{\nasesorinstitucional}} \\[\separacionLarga]
+
+CO-DIRECTOR \\[\separacionCorta]
+\textbf{\iemph{\nasesorempresaria}} \\[\separacionLarga]
+
+ORGANISMO RECEPTOR \\[\separacionCorta]
+\textbf{\iemph{\organismoreceptor}} \\[\separacionLarga]
+
+\end{center}
+
+\vfill
+
+\begin{flushright}
+\iemph{Cd. Victoria, Tamaulipas, \fechaPortada}
+\end{flushright}
+
+\HRule{}
+\clearpage
+
+
+% En las siguientes 3 paginas, debe incluir una digitalización de calidad de sus respectivas cartas
+
+% Pagina 1: Digitalización de la carta de presentación (sustituir por una original en el empastado)
+
+\thispagestyle{fancy}
+\includepdf[pages={1}]{CartaPresentacion.pdf}
+\clearpage
+
+% Pagina 2: Digitalización de la carta de aceptación (sustituir por una original en el empastado)
+
+\thispagestyle{fancy}
+\includepdf[pages={1}]{CartaAceptacion.pdf}
+\clearpage
+
+% Pagina 3: Digitalización de la carta de liberación (sustituir por una original en el empastado)
+
+\thispagestyle{fancy}
+\includepdf[pages={1}]{CartaLiberacion.pdf}
+\clearpage
+
+% Pagina 4: Carta de aceptación 
+\input{CARTAS/carta_aceptacion.tex}
+
+% Pagina 5: evaluacion de estadía
+\input{CARTAS/evaluacion.tex}
+
+% Pagina 6: evaluacion de exposicion
+\input{CARTAS/evaluacion_exposicion.tex}
+
+
+% PAGINA 4 - AGRADECIMIENTOS
+
+\ClearWallPaper{}
+\pagestyle{fancy}
+\section*{\centering Agradecimientos}
+\addcontentsline{toc}{section}{Agradecimientos}
+\input{Agradecimientos.tex}
+
+%-----------------------------------------------------------------------------------------------------------------
+% PAGINA 5 - RESUMEN EN ESPAÑOL
+
+\clearpage
+\section*{\centering Resumen}
+\addcontentsline{toc}{section}{Resumen}
+\input{Resumen.tex}
+
+\textbf{Palabras clave:} Aplicación web, Gestión, Creación, Visualización, Artículos científicos, Plantillas.
+
+%-----------------------------------------------------------------------------------------------------------------
+% PAGINA 6 - RESUMEN EN INGLES
+
+\clearpage
+\section*{\centering Summary}
+\addcontentsline{toc}{section}{Summary}
+\input{Summary.tex}
+
+\textbf{Keywords}: Web application, Management, Creation, Visualization, Scientific articles, Templates.
+%-----------------------------------------------------------------------------------------------------------------
+% PAGINA 7 - INDICE
+
+\clearpage
+\addcontentsline{toc}{section}{Índice}
+\renewcommand\contentsname{Índice}
+\tableofcontents
+
+%-----------------------------------------------------------------------------------------------------------------
+% CAPITULOS
+
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\clearpage
+\input{Capitulo1.tex}
+
+\clearpage
+\input{Capitulo2.tex}
+
+\clearpage
+\input{Capitulo3.tex}
+
+\clearpage
+\input{Capitulo4.tex}
+
+\clearpage
+\input{Capitulo5.tex}
+
+\clearpage
+% \pagenumbering{roman}
+% \setcounter{page}{6}
+\addcontentsline{toc}{section}{Índice de figuras}
+\renewcommand\listfigurename{Índice de figuras}
+
+\listoffigures
+
+\clearpage
+\addcontentsline{toc}{section}{Índice de cuadros}
+\renewcommand\listtablename{Índice de cuadros}
+\listoftables
+
+\clearpage
+\addcontentsline{toc}{section}{Índice de algoritmos}
+\renewcommand\listalgorithmname{Índice de algoritmos}
+\listofalgorithms{}
+
+%-----------------------------------------------------------------------------------------------------------------
+% REFERENCIAS
+
+
+\clearpage
+%Let's cite! The Einstein's journal paper \cite{dirac} and the Dirac's 
+%book \cite{einstein} are physics related items. 
+
+%\Urlmuskip=0mu plus 1mu\relax
+\addcontentsline{toc}{section}{Referencias} 
+\printbibliography{}
+ 
+\end{document}
